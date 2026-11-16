@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://markjustfront.github.io/ayllon-works/sitemap.xml
