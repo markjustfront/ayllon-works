@@ -73,6 +73,10 @@
       var on = btn.getAttribute("data-lang") === lang;
       btn.setAttribute("aria-pressed", on ? "true" : "false");
     });
+    document.querySelectorAll("[data-aria-es]").forEach(function (el) {
+      var label = el.getAttribute("data-aria-" + lang) || el.getAttribute("data-aria-es");
+      if (label) el.setAttribute("aria-label", label);
+    });
     try {
       sessionStorage.setItem(STORAGE_LANG, lang);
     } catch (e) {}
