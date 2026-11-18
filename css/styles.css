@@ -20,6 +20,7 @@
   --focus: #1f1f1d;
   --shadow: color-mix(in srgb, #1f1f1d 11%, transparent);
   --sheen: color-mix(in srgb, #ffffff 55%, transparent);
+  --arkha-gold: #A8803F;
   --loader-total: 1.1s;
   --draw-o: 0.48s;
   --bar-delay: 0.34s;
@@ -40,6 +41,7 @@
     --focus: #f3f2ee;
     --shadow: color-mix(in srgb, #000000 55%, transparent);
     --sheen: color-mix(in srgb, #ffffff 4.5%, transparent);
+    --arkha-gold: #D4B483;
     color-scheme: dark;
   }
 }
@@ -54,6 +56,7 @@ html[data-theme="light"] {
   --focus: #1f1f1d;
   --shadow: color-mix(in srgb, #1f1f1d 11%, transparent);
   --sheen: color-mix(in srgb, #ffffff 55%, transparent);
+  --arkha-gold: #A8803F;
   color-scheme: light;
 }
 
@@ -67,6 +70,7 @@ html[data-theme="dark"] {
   --focus: #f3f2ee;
   --shadow: color-mix(in srgb, #000000 55%, transparent);
   --sheen: color-mix(in srgb, #ffffff 4.5%, transparent);
+  --arkha-gold: #D4B483;
   color-scheme: dark;
 }
 
@@ -180,6 +184,18 @@ a:hover { text-decoration-color: var(--ink); }
 .skip-link:focus {
   top: 1rem;
   outline-color: var(--bg);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Language: show only the active locale. Spanish is the default
@@ -321,7 +337,7 @@ html[lang="ca"] [data-i18n] > [lang="ca"] { display: inline; }
 footer {
   position: relative;
   z-index: 1;
-  padding: 2rem 1.25rem 2.35rem;
+  padding: 2.75rem 1.25rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -333,6 +349,20 @@ footer {
   text-transform: uppercase;
   font-weight: 400;
 }
+
+.footer-email {
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 28%, transparent);
+  padding-bottom: 0.14em;
+  transition: border-color 0.2s ease;
+}
+
+.footer-email:hover { border-bottom-color: var(--ink); }
 
 footer::before {
   content: "";
@@ -578,9 +608,14 @@ html.js .projects .card.reveal:nth-child(2) { transition-delay: 0.1s; }
   outline-offset: 4px;
 }
 
+.section-projects {
+  width: min(54rem, 100%);
+}
+
 .projects {
   display: grid;
   gap: 1.15rem;
+  align-items: stretch;
 }
 
 .card {
@@ -588,10 +623,11 @@ html.js .projects .card.reveal:nth-child(2) { transition-delay: 0.1s; }
   isolation: isolate;
   border: 1px solid var(--line);
   background: var(--elevated);
-  padding: 1.4rem 1.3rem 1.25rem;
+  padding: 1.4rem 1.3rem 1.3rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.7rem;
+  height: 100%;
   box-shadow:
     inset 0 1px 0 var(--sheen),
     0 12px 28px -20px var(--shadow);
@@ -618,19 +654,35 @@ html.js .projects .card.reveal:nth-child(2) { transition-delay: 0.1s; }
   border-color: color-mix(in srgb, var(--ink) 40%, var(--line));
 }
 
+.card-brand {
+  display: block;
+  align-self: flex-start;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.card-logo-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
 .card-logo {
   width: 4.5rem;
   height: 4.5rem;
   object-fit: contain;
-  align-self: flex-start;
 }
 
 .card-mark {
-  width: 7.25rem;
+  width: 7.4rem;
   height: auto;
   color: var(--ink);
-  align-self: flex-start;
+  display: block;
 }
+
+.card-mark .arkha-gold { color: var(--arkha-gold); }
 
 .card h3 {
   margin: 0;
@@ -647,11 +699,85 @@ html.js .projects .card.reveal:nth-child(2) { transition-delay: 0.1s; }
 
 .card h3 a:hover { border-bottom-color: var(--ink); }
 
-.card p {
+.card-tagline {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.card-desc {
   margin: 0;
   font-size: 0.92rem;
   color: var(--ink);
   line-height: 1.55;
+}
+
+.card-chips {
+  list-style: none;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.card-chips li {
+  margin: 0;
+  padding: 0.2rem 0.48rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+}
+
+.card-arkha .card-chips li {
+  border-color: color-mix(in srgb, var(--arkha-gold) 42%, var(--line));
+}
+
+.card-actions {
+  margin-top: auto;
+  padding-top: 0.7rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.7rem 0.85rem;
+  width: 100%;
+}
+
+.card-btn {
+  display: inline-block;
+  padding: 0.55rem 0.95rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid color-mix(in srgb, var(--ink) 55%, var(--line));
+  background: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.card-btn:hover {
+  text-decoration: none;
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+.card-arkha .card-btn {
+  border-color: color-mix(in srgb, var(--arkha-gold) 70%, var(--ink));
+}
+
+.card-arkha .card-btn:hover {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
 }
 
 .card-links {
@@ -659,7 +785,6 @@ html.js .projects .card.reveal:nth-child(2) { transition-delay: 0.1s; }
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 0.4rem;
-  margin-top: 0.35rem;
 }
 
 .card-links a.text-link {
@@ -718,8 +843,7 @@ html.js .projects .card.reveal:nth-child(2) { transition-delay: 0.1s; }
   .brand { width: min(26.5rem, 70vw); }
   .section { margin-top: 4.75rem; }
   .cta { margin-top: 3.15rem; }
-  .contact { padding-top: 4.25rem; }
-  footer { padding: 2.25rem 2.5rem 2.75rem; }
+  footer { padding: 3.15rem 2.5rem 2.85rem; }
   .projects { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
   .tagline { letter-spacing: 0.2em; }
 }
@@ -739,7 +863,6 @@ html.js .projects .card.reveal:nth-child(2) { transition-delay: 0.1s; }
   .card { padding: 1.2rem 1.1rem 1.1rem; }
   .cta { margin-top: 2.35rem; }
   .cta-btn { width: auto; padding: 0.8rem 1.25rem; }
-  .contact { padding-top: 2.85rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
