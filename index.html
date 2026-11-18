@@ -43,13 +43,21 @@
     </script>
     <link rel="stylesheet" href="css/styles.css">
     <script>
-      /* Decide the loader (and optional theme/freeze) before the first paint. */
+      /* Decide the loader (and optional theme/freeze) before the first paint.
+         LOADER_POLICY must stay in sync with js/main.js:
+         "session" = full intro once per browser session, short on later reloads;
+         "always"  = full intro on every reload. */
       (function () {
         try {
+          var LOADER_POLICY = "session";
           var q = location.search;
           var html = document.documentElement;
+          html.classList.add("js");
           var theme = /(?:\?|&)theme=(dark|light)(?:&|$)/.exec(q);
           if (theme) html.setAttribute("data-theme", theme[1]);
+          if (/(?:\?|&)shot=1(?:&|$)/.test(q)) html.setAttribute("data-shot", "1");
+          var short = /(?:\?|&)loader=short(?:&|$)/.test(q);
+          if (short) html.classList.add("loader-short");
           var freeze = /(?:\?|&)freeze=([0-9]*\.?[0-9]+)(?:&|$)/.exec(q);
           if (freeze) {
             html.classList.add("is-loading");
@@ -61,7 +69,12 @@
           var seen = sessionStorage.getItem("ayllon-works-loader") === "1";
           var force = /(?:\?|&)loader=1(?:&|$)/.test(q);
           var skip = /(?:\?|&)loader=0(?:&|$)/.test(q);
-          if (force || (!skip && !reduce && !seen)) {
+          if (skip || reduce) return;
+          if (force) {
+            html.classList.add("is-loading");
+          } else if (short || (LOADER_POLICY === "session" && seen)) {
+            html.classList.add("is-loading", "loader-short");
+          } else {
             html.classList.add("is-loading");
           }
         } catch (e) {}
@@ -81,7 +94,7 @@
     </a>
 
     <header class="top">
-      <nav class="lang" aria-label="Language">
+      <nav class="lang" aria-label="Idioma" data-aria-es="Idioma" data-aria-en="Language" data-aria-ca="Idioma">
         <button type="button" data-lang="es" aria-pressed="true" lang="es">ES</button>
         <span class="sep" aria-hidden="true">·</span>
         <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
@@ -122,13 +135,13 @@
       </div>
 
       <section class="section" aria-labelledby="what-heading">
-        <h2 id="what-heading" data-i18n>
+        <h2 id="what-heading" class="reveal" data-i18n>
           <span lang="es">Qué hacemos</span>
           <span lang="en">What we do</span>
           <span lang="ca">Què fem</span>
         </h2>
         <ul class="offerings">
-          <li>
+          <li class="reveal">
             <svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 14.5h16v3.2H4z"/><path d="M5 14.5l1.8-5.2h10.4L19 14.5"/><circle cx="7.2" cy="17.7" r="1.5"/><circle cx="16.8" cy="17.7" r="1.5"/><path d="M8.8 9.3h6.4"/></svg>
             <p data-i18n>
               <span lang="es">Piezas de coche diseñadas e impresas en 3D, también para clásicos.</span>
@@ -136,7 +149,7 @@
               <span lang="ca">Peces de cotxe dissenyades i impreses en 3D, també per a clàssics.</span>
             </p>
           </li>
-          <li>
+          <li class="reveal">
             <svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4.2" y="8.2" width="7.2" height="7.2"/><rect x="12.6" y="11.4" width="7.2" height="4"/><circle cx="7.2" cy="17.8" r="1.6"/><circle cx="16.8" cy="17.8" r="1.6"/><path d="M9.5 5.5v2.7M7.8 7.2h3.4"/></svg>
             <p data-i18n>
               <span lang="es">Piezas de recambio para juguetes vintage.</span>
@@ -144,7 +157,7 @@
               <span lang="ca">Peces de recanvi per a joguines vintage.</span>
             </p>
           </li>
-          <li>
+          <li class="reveal">
             <svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8.2" cy="8.2" r="2.1"/><path d="M9.7 9.7L19 19"/><path d="M14.5 5.5L18.5 9.5M16.2 5.2l3.6 3.6M13.2 6.8l4 4"/></svg>
             <p data-i18n>
               <span lang="es">Diseño 3D e ingeniería propia.</span>
@@ -155,7 +168,7 @@
         </ul>
       </section>
 
-      <p class="cta">
+      <p class="cta reveal">
         <a class="cta-btn" href="https://cults3d.com/en/users/bernycorrado/3d-models" target="_blank" rel="noopener" data-i18n>
           <span lang="es">Ver mis modelos en Cults3D</span>
           <span lang="en">See my models on Cults3D</span>
@@ -164,13 +177,13 @@
       </p>
 
       <section class="section" aria-labelledby="projects-heading">
-        <h2 id="projects-heading" data-i18n>
+        <h2 id="projects-heading" class="reveal" data-i18n>
           <span lang="es">También impulsamos</span>
           <span lang="en">We also run</span>
           <span lang="ca">També impulsem</span>
         </h2>
         <div class="projects">
-          <article class="card">
+          <article class="card reveal">
             <a href="https://acclassicsmontgri.es" target="_blank" rel="noopener">
               <img class="card-logo"
                    src="img/acclassicsmontgri-logo.webp"
@@ -197,7 +210,7 @@
               <a class="text-link" href="https://acclassicsmontgri.es/revolucions" target="_blank" rel="noopener">Revolucions</a>
             </div>
           </article>
-          <article class="card">
+          <article class="card reveal">
             <a href="https://arkha.eu" target="_blank" rel="noopener">
               <img class="card-mark" src="img/arkha-mark.svg" width="400" height="120" alt="ARKHA">
             </a>
@@ -213,7 +226,7 @@
         </div>
       </section>
 
-      <p class="contact">
+      <p class="contact reveal">
         <a href="mailto:ayllonworks@gmail.com">ayllonworks@gmail.com</a>
         <span class="socials">
         <a class="social-btn" href="https://www.instagram.com/ayllonworks/" target="_blank" rel="noopener" aria-label="Instagram de Ayllon Works" data-aria-es="Instagram de Ayllon Works" data-aria-en="Ayllon Works on Instagram" data-aria-ca="Instagram d'Ayllon Works">

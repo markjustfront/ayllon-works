@@ -12,10 +12,20 @@
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="css/styles.css">
+    <script>
+      (function () {
+        try {
+          var html = document.documentElement;
+          html.classList.add("js");
+          var theme = /(?:\?|&)theme=(dark|light)(?:&|$)/.exec(location.search);
+          if (theme) html.setAttribute("data-theme", theme[1]);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <header class="top">
-      <nav class="lang" aria-label="Language">
+      <nav class="lang" aria-label="Idioma" data-aria-es="Idioma" data-aria-en="Language" data-aria-ca="Idioma">
         <button type="button" data-lang="es" aria-pressed="true" lang="es">ES</button>
         <span class="sep" aria-hidden="true">·</span>
         <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
@@ -24,7 +34,7 @@
       </nav>
     </header>
 
-    <main id="contenido" class="page">
+    <main id="contenido" class="page page-center">
       <div class="brand" style="width: min(4.5rem, 22vw); margin-inline: auto;">
         <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="287 177 70 91" fill="none" role="img" aria-labelledby="mark-title" focusable="false">
           <title id="mark-title">Ayllon Works</title>
