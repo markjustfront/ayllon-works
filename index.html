@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ayllon Works</title>
-    <meta name="description" content="Ayllon Works — Diseño 3D e ingeniería. Piezas de coche e impresas en 3D, recambios para juguetes vintage. Próximamente.">
+    <meta name="description" content="Ayllon Works — Diseño 3D e ingeniería, diseño web y software. Piezas de coche impresas en 3D, recambios para juguetes vintage. Próximamente.">
     <meta name="theme-color" content="#F7F7F5" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#141413" media="(prefers-color-scheme: dark)">
     <meta name="color-scheme" content="light dark">
@@ -16,7 +16,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Ayllon Works">
     <meta property="og:title" content="Ayllon Works">
-    <meta property="og:description" content="Diseño 3D e ingeniería. Próximamente.">
+    <meta property="og:description" content="Diseño 3D e ingeniería, diseño web y software. Próximamente.">
     <meta property="og:url" content="https://markjustfront.github.io/ayllon-works/">
     <meta property="og:image" content="https://markjustfront.github.io/ayllon-works/img/og.png">
     <meta property="og:image:width" content="1200">
@@ -26,7 +26,7 @@
     <meta property="og:locale:alternate" content="ca_ES">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Ayllon Works">
-    <meta name="twitter:description" content="Diseño 3D e ingeniería. Próximamente.">
+    <meta name="twitter:description" content="Diseño 3D e ingeniería, diseño web y software. Próximamente.">
     <meta name="twitter:image" content="https://markjustfront.github.io/ayllon-works/img/og.png">
     <script type="application/ld+json">
       {
@@ -50,9 +50,14 @@
       (function () {
         try {
           var LOADER_POLICY = "session";
+          /* Set true to show the "We also run" section. Keep in sync with js/main.js. */
+          var SHOW_PROJECTS = false;
           var q = location.search;
           var html = document.documentElement;
           html.classList.add("js");
+          if (SHOW_PROJECTS) {
+            document.documentElement.setAttribute("data-show-projects", "1");
+          }
           var theme = /(?:\?|&)theme=(dark|light)(?:&|$)/.exec(q);
           if (theme) html.setAttribute("data-theme", theme[1]);
           if (/(?:\?|&)shot=1(?:&|$)/.test(q)) html.setAttribute("data-shot", "1");
@@ -158,11 +163,11 @@
             </p>
           </li>
           <li class="reveal">
-            <svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="8.2" cy="8.2" r="2.1"/><path d="M9.7 9.7L19 19"/><path d="M14.5 5.5L18.5 9.5M16.2 5.2l3.6 3.6M13.2 6.8l4 4"/></svg>
+            <svg class="line-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.4" y="5.2" width="17.2" height="13.6" rx="1.4"/><path d="M3.4 8.4h17.2"/><circle cx="6.2" cy="6.8" r="0.55" fill="currentColor" stroke="none"/><circle cx="8.3" cy="6.8" r="0.55" fill="currentColor" stroke="none"/></svg>
             <p data-i18n>
-              <span lang="es">Diseño 3D e ingeniería propia.</span>
-              <span lang="en">3D design and our own engineering.</span>
-              <span lang="ca">Disseny 3D i enginyeria pròpia.</span>
+              <span lang="es">Diseño web, desarrollo y software.</span>
+              <span lang="en">Web design, development and software.</span>
+              <span lang="ca">Disseny web, desenvolupament i programari.</span>
             </p>
           </li>
         </ul>
@@ -176,7 +181,9 @@
         </a>
       </p>
 
-      <section class="section section-projects" aria-labelledby="projects-heading">
+      <!-- SHOW_PROJECTS is false: keep this section in the page, hidden.
+     To re-enable, set SHOW_PROJECTS to true in js/main.js (and in the boot script). -->
+      <section class="section section-projects" hidden inert aria-hidden="true" aria-labelledby="projects-heading">
         <h2 id="projects-heading" class="reveal" data-i18n>
           <span lang="es">También impulsamos</span>
           <span lang="en">We also run</span>

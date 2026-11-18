@@ -545,8 +545,7 @@ html.js .projects .card.reveal:nth-child(2) { transition-delay: 0.1s; }
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 1.25rem;
 }
 
@@ -845,6 +844,13 @@ html.js .projects .card.reveal:nth-child(2) { transition-delay: 0.1s; }
   .cta { margin-top: 3.15rem; }
   footer { padding: 3.15rem 2.5rem 2.85rem; }
   .projects { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  .offerings { grid-template-columns: 1fr 1fr 1fr; gap: 1.35rem; }
+  .offerings li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+  .offerings p { max-width: none; }
   .tagline { letter-spacing: 0.2em; }
 }
 
@@ -903,3 +909,11 @@ html[data-shot] .page {
   min-height: 0;
 }
 
+
+/* "We also run" is off unless SHOW_PROJECTS is true (html[data-show-projects]). */
+.section-projects[hidden] {
+  display: none !important;
+}
+html[data-show-projects="1"] .section-projects[hidden] {
+  display: block !important;
+}

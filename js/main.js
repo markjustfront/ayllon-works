@@ -10,6 +10,10 @@
   var LOADER_FULL_MS = 1100;
   var LOADER_SHORT_MS = 800;
 
+  /* Set true to show the "También impulsamos / We also run" section.
+     Keep in sync with the boot script in index.html. */
+  var SHOW_PROJECTS = false;
+
   var STORAGE_LANG = "ayllon-works-lang";
   var STORAGE_LOADER = "ayllon-works-loader";
   var html = document.documentElement;
@@ -159,5 +163,17 @@
     btn.addEventListener("click", function () {
       applyLang(btn.getAttribute("data-lang"));
     });
+  });
+
+  document.querySelectorAll(".section-projects").forEach(function (section) {
+    if (SHOW_PROJECTS) {
+      section.removeAttribute("hidden");
+      section.removeAttribute("inert");
+      section.removeAttribute("aria-hidden");
+    } else {
+      section.setAttribute("hidden", "");
+      section.setAttribute("inert", "");
+      section.setAttribute("aria-hidden", "true");
+    }
   });
 })();
